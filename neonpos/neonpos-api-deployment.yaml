@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neonpos-api-deployment
+  labels:
+    app: neonpos-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: neonpos-api
+  template:
+    metadata:
+      labels:
+        app: neonpos-api
+    spec:
+      containers:
+      - name: neonpos-api-cntnr
+        image: johnpauloramil187/chatterloop_api:latest
+        ports:
+        - containerPort: 3002
+      imagePullSecrets:
+        - name: neon-systems-registry
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neonpos-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: neonpos-api
+  ports:
+    - port: 3002
+      targetPort: 3002
