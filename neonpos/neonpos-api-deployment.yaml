@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: neonpos-api-cntnr
-        image: johnpauloramil187/neonpos-api-commercial:latest
+        image: johnpauloramil187/neonpos-api-commercial:v2.1.8
         ports:
         - containerPort: 3002
       imagePullSecrets:
