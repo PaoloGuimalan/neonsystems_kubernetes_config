@@ -16,7 +16,12 @@ spec:
     spec:
       containers:
       - name: chatterloop-api-cntnr
-        image: johnpauloramil187/chatterloop_api:latest
+        image: johnpauloramil187/chatterloop_api:v2.1.1
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
         ports:
         - containerPort: 3001
       imagePullSecrets:
