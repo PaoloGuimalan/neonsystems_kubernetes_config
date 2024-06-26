@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: chatterloop-api-cntnr
-        image: johnpauloramil187/chatterloop_api:v2.1.1
+        image: johnpauloramil187/chatterloop_api:v2.1.5
         env:
           - name: POD_NAME
             valueFrom:
