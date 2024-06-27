@@ -4,6 +4,7 @@ metadata:
   name: ingress-ns
   annotations:
     cert-manager.io/issuer: neonsystems-letsencrypt-nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: nginx
   tls:
