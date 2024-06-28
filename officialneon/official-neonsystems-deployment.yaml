@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: official-neonsystems-deployment
+  labels:
+    app: official-neonsystems
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: official-neonsystems
+  template:
+    metadata:
+      labels:
+        app: official-neonsystems
+    spec:
+      containers:
+      - name: official-neonsystems-cntnr
+        image: johnpauloramil187/official-neon-systems:v0.1.0
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+        ports:
+        - name: http
+          containerPort: 3003
+      imagePullSecrets:
+        - name: neon-systems-registry
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: official-neonsystems-service
+spec:
+  selector:
+    app: official-neonsystems
+  ports:
+    - name: http
+      port: 100
+      targetPort: 3003
