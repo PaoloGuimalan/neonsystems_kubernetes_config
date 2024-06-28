@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chatterloop-api-deployment
+  name: chatterloop-web-deployment
   labels:
-    app: chatterloop-api
+    app: chatterloop-web
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: chatterloop-api
+      app: chatterloop-web
   template:
     metadata:
       labels:
-        app: chatterloop-api
+        app: chatterloop-web
     spec:
       containers:
-      - name: chatterloop-api-cntnr
-        image: johnpauloramil187/chatterloop_api:v2.1.5
+      - name: chatterloop-web-cntnr
+        image: johnpauloramil187/chatterloop_web:v2.1.0
         env:
           - name: POD_NAME
             valueFrom:
@@ -24,7 +24,7 @@ spec:
                 fieldPath: metadata.name
         ports:
         - name: http
-          containerPort: 3001
+          containerPort: 3004
       imagePullSecrets:
         - name: neon-systems-registry
 
@@ -33,11 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: chatterloop-api-service
+  name: chatterloop-web-service
 spec:
   selector:
-    app: chatterloop-api
+    app: chatterloop-web
   ports:
     - name: http
-      port: 80
-      targetPort: 3001
+      port: 110
+      targetPort: 3004

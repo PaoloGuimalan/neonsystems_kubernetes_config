@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: chatterloop-api-config
-data:
-  chatterloop-api-url: chatterloop-api-service
