@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neonpos-api-deployment
+  labels:
+    app: neonpos-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: neonpos-api
+  template:
+    metadata:
+      labels:
+        app: neonpos-api
+    spec:
+      containers:
+      - name: neonpos-api-cntnr
+        image: johnpauloramil187/neonpos-api-commercial:v2.1.8
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+        ports:
+        - name: http
+          containerPort: 3002
+      imagePullSecrets:
+        - name: neon-systems-registry
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neonpos-api-service
+spec:
+  selector:
+    app: neonpos-api
+  ports:
+    - name: http
+      port: 90
+      targetPort: 3002
