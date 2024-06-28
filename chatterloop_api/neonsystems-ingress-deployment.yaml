@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-ns
+  annotations:
+    cert-manager.io/issuer: neonsystems-letsencrypt-nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - api.chatterloop.app
+      - api.neonsystems.net
+      - www.neonsystems.net
+      - www.chatterloop.app
+      secretName: neonsystems-letsencrypt-nginx
+  rules:
+    - host: api.chatterloop.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chatterloop-api-service
+                port:
+                  number: 3001
+    - host: api.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neonpos-api-service
+                port:
+                  number: 3002
+    - host: www.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: official-neonsystems-service
+                port:
+                  number: 3003
+    - host: www.chatterloop.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chatterloop-web-service
+                port:
+                  number: 3004
