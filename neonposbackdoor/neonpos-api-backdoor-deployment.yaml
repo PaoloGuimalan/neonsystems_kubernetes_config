@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neonpos-api-backdoor-deployment
+  labels:
+    app: neonpos-api-backdoor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: neonpos-api-backdoor
+  template:
+    metadata:
+      labels:
+        app: neonpos-api-backdoor
+    spec:
+      containers:
+      - name: neonpos-api-backdoor-cntnr
+        image: johnpauloramil187/neonpos-api:v1.0.0
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+        ports:
+        - name: http
+          containerPort: 3005
+      imagePullSecrets:
+        - name: neon-systems-registry
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: neonpos-api-backdoor-service
+spec:
+  selector:
+    app: neonpos-api-backdoor
+  ports:
+    - name: http
+      port: 110
+      targetPort: 3005

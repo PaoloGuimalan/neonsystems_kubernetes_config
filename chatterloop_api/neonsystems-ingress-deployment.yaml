@@ -11,6 +11,8 @@ spec:
     - hosts:
       - api.chatterloop.app
       - api.neonsystems.net
+      - pos-api.neonsystems.net
+      - pos-api-commercial.neonsystems.net
       - www.neonsystems.net
       - www.chatterloop.app
       secretName: neonsystems-letsencrypt-nginx
@@ -25,7 +27,7 @@ spec:
                 name: chatterloop-api-service
                 port:
                   number: 3001
-    - host: api.neonsystems.net
+    - host: pos-api-commercial.neonsystems.net
       http:
         paths:
           - path: /
@@ -55,3 +57,13 @@ spec:
                 name: chatterloop-web-service
                 port:
                   number: 3004
+    - host: pos-api.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neonpos-api-backdoor-service
+                port:
+                  number: 3005
