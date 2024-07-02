@@ -15,8 +15,19 @@ spec:
       - pos-api-commercial.neonsystems.net
       - www.neonsystems.net
       - www.chatterloop.app
+      - rabbitmq.neonsystems.net
       secretName: neonsystems-letsencrypt-nginx
   rules:
+    - host: rabbitmq.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rabbitmq-management-ui
+                port:
+                  number: 5672
     - host: api.chatterloop.app
       http:
         paths:
