@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: neonpos-api-backdoor-cntnr
-        image: johnpauloramil187/neonpos-api:v1.0.1
+        image: johnpauloramil187/neonpos-api:v1.0.2
         env:
           - name: POD_NAME
             valueFrom:
