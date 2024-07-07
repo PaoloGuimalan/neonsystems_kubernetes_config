@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: official-neonsystems-cntnr
-        image: johnpauloramil187/official-neon-systems:v0.1.2
+        image: johnpauloramil187/official-neon-systems:v0.1.3
         env:
           - name: POD_NAME
             valueFrom:
