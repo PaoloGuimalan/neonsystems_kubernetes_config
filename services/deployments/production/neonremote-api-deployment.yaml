@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neonremote-api-deployment
+  labels:
+    app: neonremote-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: neonremote-api
+  template:
+    metadata:
+      labels:
+        app: neonremote-api
+    spec:
+      containers:
+        - name: neonremote-api-cntnr
+          image: johnpauloramil187/neonremote-api:v0.0.1
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - name: http
+              containerPort: 3007
+      imagePullSecrets:
+        - name: neon-systems-registry
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neonremote-api-service
+spec:
+  selector:
+    app: neonremote-api
+  ports:
+    - name: http
+      port: 112
+      targetPort: 3007
+

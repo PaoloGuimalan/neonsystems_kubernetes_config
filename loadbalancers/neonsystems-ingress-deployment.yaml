@@ -17,6 +17,8 @@ spec:
         - www.chatterloop.app
         - rabbitmq.neonsystems.net
         - argocd.neonsystems.net
+        - remote.neonsystems.net
+        - remote-api.neonsystems.net
       secretName: neonsystems-letsencrypt-nginx
   rules:
     - host: rabbitmq.neonsystems.net
@@ -79,6 +81,26 @@ spec:
                 name: neonpos-api-backdoor-service
                 port:
                   number: 3005
+    - host: remote.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neonremote-ui-service
+                port:
+                  number: 3006
+    - host: remote-api.neonsystems.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: neonremote-api-service
+                port:
+                  number: 3007
     - host: argocd.neonsystems.net
       http:
         paths:
@@ -89,3 +111,4 @@ spec:
                 name: argocd-server-external
                 port:
                   name: http
+

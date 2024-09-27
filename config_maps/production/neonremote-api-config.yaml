@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: neonremote-api-config
+data:
+  neonremote-api-url: neonremote-api-service
+
