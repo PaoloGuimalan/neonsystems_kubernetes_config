@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: neonremote-api-cntnr
-          image: johnpauloramil187/neonremote-api:v0.0.1
+          image: johnpauloramil187/neonremote-api:v0.0.2
           env:
             - name: POD_NAME
               valueFrom:
